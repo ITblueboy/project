@@ -6,6 +6,11 @@
 #include<sys/socket.h>
 #include<netinet/in.h>
 #include<arpa/inet.h>
+#include<sys/stat.h>
+#include<sys/sendfile.h>
+#include<fcntl.h>
+#include<sys/types.h>
+#include<signal.h>
 
 #define SIZE (1024*4)
 
@@ -18,10 +23,11 @@ typedef struct HttpRequest
   char *method;
   char *url;
   char *url_path;
-  char *content_length;
+  int content_length;
   char *query_string;
 }HttpRequest;
 
 
 
 void HandleRequest(int64_t new_sock);
+int ParseHeader(int new_sock,int* content_length);
